@@ -19,7 +19,6 @@ const Transaction = () => {
     const [transactionToEdit, setTransactionToEdit] = useState(null);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [noReceipt, setNoReceipt] = useState('');
-    const [status, setStatus] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -78,7 +77,6 @@ const Transaction = () => {
     const openEditDialog = (transaction) => {
         setTransactionToEdit(transaction);
         setNoReceipt(transaction.no_receipt || '');
-        setStatus(transaction.status || '');
         setIsEditDialogOpen(true);
     };
 
@@ -122,34 +120,6 @@ const Transaction = () => {
             .catch((error) => {
                 console.error('Gagal memperbarui no resi:', error);
                 alert('Terjadi kesalahan saat memperbarui nomor resi.');
-            });
-    };
-
-
-    const updateStatus = () => {
-        if (!transactionToEdit) return;
-
-        const token = Cookies.get('token');
-        if (!token) {
-            setError('Token tidak ditemukan, silakan login kembali');
-            setTimeout(() => {
-                navigate('/');
-            }, 200);
-            return;
-        }
-
-        axios.patch(
-            `https://skripsi-api-859835962101.asia-southeast2.run.app/${transactionToEdit.id}/status`,
-            { status },
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
-            .then(() => {
-                fetchTransactions();
-                alert('Status berhasil diperbarui!');
-            })
-            .catch((error) => {
-                console.error('Gagal memperbarui status:', error);
-                alert('Terjadi kesalahan saat memperbarui status.');
             });
     };
 
@@ -300,27 +270,6 @@ const Transaction = () => {
                                 />
                                 <button
                                     onClick={updateResi}
-                                    className="bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 rounded-lg flex items-center justify-center"
-                                >
-                                    <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium mb-2">Status</label>
-                            <div className="flex gap-2">
-                                <select
-                                    value={status}
-                                    onChange={(e) => setStatus(e.target.value)}
-                                    className="w-full px-4 py-2 border rounded-lg"
-                                >
-                                    <option value="Pending">Pending</option>
-                                    <option value="Dibayar">Dibayar</option>
-                                    <option value="Selesai">Selesai</option>
-                                </select>
-                                <button
-                                    onClick={updateStatus}
                                     className="bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 rounded-lg flex items-center justify-center"
                                 >
                                     <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />

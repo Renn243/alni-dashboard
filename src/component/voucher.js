@@ -263,7 +263,6 @@ const Voucher = () => {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                                 value={newVoucher.id}
                                 onChange={(e) => setNewVoucher({ ...newVoucher, id: e.target.value })}
-                                placeholder="Masukkan kode voucher"
                             />
                         </div>
                         <div className="mb-6">
@@ -273,7 +272,6 @@ const Voucher = () => {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                                 value={newVoucher.name}
                                 onChange={(e) => setNewVoucher({ ...newVoucher, name: e.target.value })}
-                                placeholder="Masukkan nama voucher"
                             />
                         </div>
                         <div className="mb-6">
@@ -283,7 +281,6 @@ const Voucher = () => {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                                 value={newVoucher.description}
                                 onChange={(e) => setNewVoucher({ ...newVoucher, description: e.target.value })}
-                                placeholder="Masukkan deskripsi voucher"
                             />
                         </div>
                         <div className="mb-6">
@@ -293,7 +290,6 @@ const Voucher = () => {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                                 value={newVoucher.discount}
                                 onChange={(e) => setNewVoucher({ ...newVoucher, discount: e.target.value })}
-                                placeholder="Masukkan diskon"
                             />
                         </div>
                         <div className="flex justify-center gap-4">
