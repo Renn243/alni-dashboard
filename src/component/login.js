@@ -19,7 +19,7 @@ const Login = () => {
     useEffect(() => {
         const token = Cookies.get('token');
         if (token) {
-            navigate('/user');
+            navigate('/dashboard');
         }
     }, [navigate]);
 
