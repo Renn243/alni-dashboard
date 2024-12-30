@@ -26,7 +26,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed top-0 w-full bg-white border-b border-gray-200">
+            <nav className="fixed top-0 z-20 w-full bg-white border-b border-gray-200">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center justify-between w-full">
@@ -49,13 +49,12 @@ const Navbar = () => {
                 aria-label="Sidebar"
             >
                 <div className="h-full overflow-y-auto bg-white">
-                    <a href="/#home" className="flex mt-5 justify-center">
+                    <Link to="/dashboard" className="flex mt-5 justify-center">
                         <img
                             src={DM1}
                             className="h-8 me-3 spin-on-hover"
-                            alt="FlowBite Logo"
                         />
-                    </a>
+                    </Link>
 
                     <hr className='mt-5 mx-5 border-2 border-gray-300' />
                     <ul className="space-y-2 px-4 mt-5">

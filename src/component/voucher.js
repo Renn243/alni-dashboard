@@ -5,10 +5,12 @@ import { faArrowLeft, faArrowRight, faEdit, faEye, faTrash } from '@fortawesome/
 import Loading from './loading';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import DM1 from './image/dm1.png'
 
 const Voucher = () => {
     const [vouchers, setVouchers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loading2, setLoading2] = useState(false);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -70,9 +72,12 @@ const Voucher = () => {
     };
 
     const handleCreateVoucher = () => {
+        setLoading2(true);
+
         const token = Cookies.get('token');
         if (!token) {
             setError('Token tidak ditemukan, silakan login kembali');
+            setLoading2(false);
             setTimeout(() => {
                 navigate('/');
             }, 200);
@@ -105,8 +110,12 @@ const Voucher = () => {
             .catch((error) => {
                 console.error("Error creating voucher:", error);
                 setError('Terjadi kesalahan saat membuat voucher');
+            })
+            .finally(() => {
+                setLoading2(false);
             });
     };
+
 
     const handleCloseDialog = () => {
         setShowDeleteDialog(false);
@@ -116,10 +125,6 @@ const Voucher = () => {
 
     if (loading) {
         return <Loading />;
-    }
-
-    if (error) {
-        return <div className="text-red-500">{error}</div>;
     }
 
     return (
@@ -254,62 +259,80 @@ const Voucher = () => {
 
             {showCreateDialog && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-                    <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
-                        <h2 className="text-lg font-semibold mb-6">Buat Voucher Baru</h2>
-                        <div className="mb-6">
-                            <label className="block text-gray-600">Kode Voucher</label>
-                            <input
-                                type="text"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                value={newVoucher.id}
-                                onChange={(e) => setNewVoucher({ ...newVoucher, id: e.target.value })}
-                            />
-                        </div>
-                        <div className="mb-6">
-                            <label className="block text-gray-600">Nama Voucher</label>
-                            <input
-                                type="text"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                value={newVoucher.name}
-                                onChange={(e) => setNewVoucher({ ...newVoucher, name: e.target.value })}
-                            />
-                        </div>
-                        <div className="mb-6">
-                            <label className="block text-gray-600">Deskripsi</label>
-                            <input
-                                type="text"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                value={newVoucher.description}
-                                onChange={(e) => setNewVoucher({ ...newVoucher, description: e.target.value })}
-                            />
-                        </div>
-                        <div className="mb-6">
-                            <label className="block text-gray-600">Diskon</label>
-                            <input
-                                type="number"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                value={newVoucher.discount}
-                                onChange={(e) => setNewVoucher({ ...newVoucher, discount: e.target.value })}
-                            />
-                        </div>
-                        <div className="flex justify-center gap-4">
-                            <button
-                                onClick={handleCreateVoucher}
-                                className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-700"
-                            >
-                                Simpan
-                            </button>
-                            <button
-                                onClick={handleCloseDialog}
-                                className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-700"
-                            >
-                                Tutup
-                            </button>
-                        </div>
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+                        <h2 className="text-lg font-semibold text-center mb-6">Buat Voucher Baru</h2>
+                        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Kode Voucher"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={newVoucher.id}
+                                    onChange={(e) => setNewVoucher({ ...newVoucher, id: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Nama Voucher"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={newVoucher.name}
+                                    onChange={(e) => setNewVoucher({ ...newVoucher, name: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Deskripsi"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={newVoucher.description}
+                                    onChange={(e) => setNewVoucher({ ...newVoucher, description: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <input
+                                    type="number"
+                                    placeholder="Diskon"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={newVoucher.discount}
+                                    onChange={(e) =>
+                                        setNewVoucher({
+                                            ...newVoucher,
+                                            discount: parseFloat(e.target.value),
+                                        })
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-center gap-6 mt-6">
+                                {loading2 ? (
+                                    <div className="flex justify-center items-center mt-5">
+                                        <div className="animate-spin-3d h-24 w-24">
+                                            <img src={DM1} alt="Loading" />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <button
+                                            onClick={handleCreateVoucher}
+                                            className="w-full md:w-auto py-3 px-6 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 transition duration-300"
+                                        >
+                                            Simpan
+                                        </button>
+                                        <button
+                                            onClick={handleCloseDialog}
+                                            className="w-full md:w-auto py-3 px-6 bg-gray-500 text-white rounded-lg shadow-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300"
+                                        >
+                                            Tutup
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             )}
-
         </div>
     );
 };

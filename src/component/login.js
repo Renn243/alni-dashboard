@@ -38,7 +38,7 @@ const Login = () => {
             .then((res) => {
                 let token = res.data.data.token;
                 Cookies.set('token', token, { expires: 1 });
-                navigate('/user');
+                navigate('/dashboard');
                 alert("Berhasil login");
             })
             .catch((error) => {

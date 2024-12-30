@@ -6,6 +6,7 @@ import Product from './component/product';
 import Voucher from './component/voucher';
 import Transaction from './component/transaction';
 import Login from './component/login';
+import Dashboard from './component/dashboard';
 
 function App() {
   return (
@@ -16,6 +17,15 @@ function App() {
           element={
             <>
               <Login />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <Navbar />
+              <Dashboard />
             </>
           }
         />
