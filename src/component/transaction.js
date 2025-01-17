@@ -163,7 +163,7 @@ const Transaction = () => {
                             {transactions.map((transaction) => (
                                 <tr key={transaction.id} className="odd:bg-white even:bg-gray-50 border-b">
                                     <td className="px-6 py-3">{transaction.no_transaction}</td>
-                                    <td className="px-6 py-3">{transaction.user_id}</td>
+                                    <td className="px-6 py-3">{transaction.address_name}</td>
                                     <td className="px-6 py-3">{new Date(transaction.created_at).toLocaleDateString()}</td>
                                     <td className="px-6 py-3">
                                         <span className={`inline-block text-xs font-medium px-2 py-1 rounded-full ${getStatusClass(transaction.status)}`}>

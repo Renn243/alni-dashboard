@@ -304,7 +304,7 @@ const Product = () => {
                                     <td className="px-6 py-3">
                                         <div className="flex gap-2">
                                             <button
-                                                onClick={() => openEditDialog(product)} // Fungsi untuk membuka dialog edit
+                                                onClick={() => openEditDialog(product)}
                                                 className="text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                             >
                                                 <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
@@ -385,7 +385,7 @@ const Product = () => {
 
             {isDetailDialogOpen && selectedProduct && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="relative bg-white p-6 rounded-lg w-full max-w-3xl max-h-[80vh] overflow-y-auto">
+                    <div className="relative bg-white p-6 rounded-lg w-full max-w-3xl max-h-[80vh] overflow-y-auto p-10">
                         <button
                             onClick={closeDetailDialog}
                             className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition duration-200"
@@ -393,32 +393,81 @@ const Product = () => {
                         >
                             ✖
                         </button>
-                        <h2 className="text-lg font-bold mb-4">Detail Produk</h2>
+                        <h2 className="text-lg text-blue-300 font-bold mb-8">Detail Produk</h2>
 
                         <div className="mb-4">
-                            <strong>Nama Produk:</strong> {selectedProduct.name}
+                            <h4 className="mb-2">Nama Produk:</h4>
+                            <input
+                                type="text"
+                                value={selectedProduct.name}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
                         </div>
                         <div className="mb-4">
-                            <strong>Harga:</strong> Rp {new Intl.NumberFormat().format(selectedProduct.price)}
+                            <h4 className="mb-2">Harga:</h4>
+                            <input
+                                type="text"
+                                value={`Rp ${new Intl.NumberFormat().format(selectedProduct.price)}`}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
                         </div>
                         <div className="mb-4">
-                            <strong>Deskripsi:</strong> {selectedProduct.description || "Tidak ada deskripsi"}
+                            <h4 className="mb-2">Deskripsi:</h4>
+                            <textarea
+                                value={selectedProduct.description || "Tidak ada deskripsi"}
+                                readOnly
+                                rows={5}
+                                className="w-full border rounded-lg p-2"
+                            ></textarea>
                         </div>
                         <div className="mb-4">
-                            <strong>Kategori:</strong> {selectedProduct.category}
+                            <h4 className="mb-2">Kategori:</h4>
+                            <input
+                                type="text"
+                                value={selectedProduct.category}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
                         </div>
-                        <div className="mb-4">
-                            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-64 object-cover mb-4" />
+                        <div className="mb-8">
+                            <h4 className="mb-2">Gambar :</h4>
+                            <img
+                                src={selectedProduct.image}
+                                alt={selectedProduct.name}
+                                className="w-64 h-64 object-cover mb-4 rounded-lg"
+                            />
                         </div>
 
-                        <h3 className="text-lg font-bold mb-4">Ukuran & Stok</h3>
+                        <h3 className="mb-4">Ukuran & Stok</h3>
                         <div>
                             {selectedProduct.product_size.map(size => (
-                                <div key={size.id} className="mb-2">
-                                    <p><strong>Ukuran:</strong> {size.size}</p>
-                                    <p><strong>Deskripsi:</strong> {size.description}</p>
-                                    <p><strong>Stok:</strong> {size.stock}</p>
+                                <div key={size.id} className="mb-8">
+                                    <h4 className="mb-2">Ukuran:</h4>
+                                    <input
+                                        type="text"
+                                        value={size.size}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2 mb-2"
+                                    />
+                                    <h4 className="mb-2">Deskripsi:</h4>
+                                    <textarea
+                                        value={size.description}
+                                        readOnly
+                                        rows={5}
+                                        className="w-full border rounded-lg p-2 mb-2"
+                                    />
+                                    <h4 className="mb-2">Stok:</h4>
+                                    <input
+                                        type="text"
+                                        value={size.stock}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2 mb-4"
+                                    />
+                                    <hr className="border-t-4" />
                                 </div>
+
                             ))}
                         </div>
 
@@ -432,53 +481,54 @@ const Product = () => {
                         </div>
                     </div>
                 </div>
+
             )}
 
             {isCreateDialogOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                        <h2 className="text-lg font-medium mb-4">Tambah Produk</h2>
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
+                    <div className="relative bg-white p-6 rounded-lg w-full max-w-md max-h-[80vh] overflow-y-auto">
+                        <h2 className="text-lg font-bold text-blue-300 mb-4">Tambah Produk</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
+                            <h4 className='mb-2'>Nama Produk</h4>
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Nama Produk"
                                 value={newProduct.name}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Deskripsi</h4>
                             <textarea
                                 name="description"
-                                placeholder="Deskripsi Produk"
                                 value={newProduct.description}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Harga</h4>
                             <input
                                 type="number"
                                 name="price"
-                                placeholder="Harga Produk"
                                 value={newProduct.price}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Kategori</h4>
                             <input
                                 type="text"
                                 name="category"
-                                placeholder="Kategori Produk"
                                 value={newProduct.category}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Gambar</h4>
                             <input
                                 type="file"
                                 name="image"
                                 onChange={handleImageChange}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
-
-                            <div className="mt-4">
-                                <h3 className="text-lg">Ukuran dan Stok</h3>
+                            <div>
+                                <h3 className="mb-2">Ukuran dan Stok</h3>
                                 {newProduct.product_size.map((size, index) => (
                                     <div key={index} className="flex gap-4">
                                         <input
@@ -513,20 +563,19 @@ const Product = () => {
                                     <>
                                         <button
                                             onClick={createProduct}
-                                            className="w-full md:w-auto py-3 px-6 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                                            className="bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 rounded-lg"
                                         >
                                             Simpan
                                         </button>
                                         <button
                                             onClick={closeCreateDialog}
-                                            className="w-full md:w-auto py-3 px-6 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-300"
+                                            className="bg-gray-300 hover:bg-gray-500 text-black px-4 py-2 rounded-lg"
                                         >
                                             Batal
                                         </button>
                                     </>
                                 )}
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -534,49 +583,51 @@ const Product = () => {
 
             {isEditDialogOpen && productToEdit && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                        <h2 className="text-lg font-medium mb-4">Update Produk</h2>
+                    <div className="relative bg-white p-6 rounded-lg w-full max-w-md max-h-[80vh] overflow-y-auto">
+                        <h2 className="text-lg font-bold text-blue-300 mb-8">Update Produk</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
+                            <h4 className='mb-2'>Nama Produk:</h4>
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Nama Produk"
                                 value={productToEdit.name}
                                 onChange={handleInputChangeEdit}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Deskripsi:</h4>
                             <textarea
                                 name="description"
-                                placeholder="Deskripsi Produk"
                                 value={productToEdit.description}
                                 onChange={handleInputChangeEdit}
-                                className="w-full p-2 border rounded mb-2"
+                                rows={5}
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Harga:</h4>
                             <input
                                 type="number"
                                 name="price"
-                                placeholder="Harga Produk"
                                 value={productToEdit.price}
                                 onChange={handleInputChangeEdit}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Kategori:</h4>
                             <input
                                 type="text"
                                 name="category"
-                                placeholder="Kategori Produk"
                                 value={productToEdit.category}
                                 onChange={handleInputChangeEdit}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
+                            <h4 className='mb-2'>Gambar:</h4>
                             <input
                                 type="file"
                                 name="image"
                                 onChange={handleImageChangeEdit}
-                                className="w-full p-2 border rounded mb-2"
+                                className="w-full p-2 border rounded mb-4"
                             />
 
                             <div className="mt-4">
-                                <h3 className="text-lg">Ukuran dan Stok</h3>
+                                <h3 className='mb-2'>Ukuran dan Stok</h3>
                                 {productToEdit.product_size.map((size, index) => (
                                     <div key={index} className="flex gap-4">
                                         <input
