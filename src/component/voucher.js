@@ -240,12 +240,43 @@ const Voucher = () => {
 
             {showDetailDialog && selectedVoucher && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
-                        <h2 className="text-xl font-semibold mb-4">{selectedVoucher.name}</h2>
-                        <div className="text-sm text-gray-600 mb-4">
-                            <p><strong>Kode:</strong> {selectedVoucher.id}</p>
-                            <p><strong>Diskon:</strong> Rp {selectedVoucher.discount}</p>
-                            <p>{selectedVoucher.description}</p>
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
+                        <h1 className='text-blue-300 text-lg font-bold mb-8'>Detail Voucher</h1>
+                        <div className="mb-4">
+                            <h4 className="mb-2">Nama Voucher:</h4>
+                            <input
+                                type="text"
+                                value={selectedVoucher.name}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <h4 className="mb-2">Kode Voucher:</h4>
+                            <input
+                                type="text"
+                                value={selectedVoucher.id}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <h4 className="mb-2">Diskon:</h4>
+                            <input
+                                type="text"
+                                value={selectedVoucher.discount}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="mb-8">
+                            <h4 className="mb-2">Deskripsi:</h4>
+                            <input
+                                type="text"
+                                value={selectedVoucher.description}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
                         </div>
                         <button
                             onClick={handleCloseDialog}
@@ -259,40 +290,40 @@ const Voucher = () => {
 
             {showCreateDialog && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-                        <h2 className="text-lg font-semibold text-center mb-6">Buat Voucher Baru</h2>
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
+                        <h2 className="text-lg font-bold text-blue-300 mb-8">Buat Voucher Baru</h2>
                         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                             <div className="mb-4">
+                                <h4 className='mb-2'>Kode Voucher:</h4>
                                 <input
                                     type="text"
-                                    placeholder="Kode Voucher"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                     value={newVoucher.id}
                                     onChange={(e) => setNewVoucher({ ...newVoucher, id: e.target.value })}
                                 />
                             </div>
                             <div className="mb-4">
+                                <h4 className='mb-2'>Nama Voucher:</h4>
                                 <input
                                     type="text"
-                                    placeholder="Nama Voucher"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                     value={newVoucher.name}
                                     onChange={(e) => setNewVoucher({ ...newVoucher, name: e.target.value })}
                                 />
                             </div>
                             <div className="mb-4">
+                                <h4 className='mb-2'>Deskripsi:</h4>
                                 <input
                                     type="text"
-                                    placeholder="Deskripsi"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                     value={newVoucher.description}
                                     onChange={(e) => setNewVoucher({ ...newVoucher, description: e.target.value })}
                                 />
                             </div>
                             <div className="mb-4">
+                                <h4 className='mb-2'>Diskon:</h4>
                                 <input
                                     type="number"
-                                    placeholder="Diskon"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                     value={newVoucher.discount}
                                     onChange={(e) =>
@@ -304,7 +335,7 @@ const Voucher = () => {
                                 />
                             </div>
 
-                            <div className="flex justify-center gap-6 mt-6">
+                            <div className="flex justify-center gap-6 mt-8">
                                 {loading2 ? (
                                     <div className="flex justify-center items-center mt-5">
                                         <div className="animate-spin-3d h-24 w-24">
