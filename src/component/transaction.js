@@ -245,7 +245,7 @@ const Transaction = () => {
                             </button>
                             <button
                                 onClick={closeDialog}
-                                className="bg-gray-300hover:bg-gray-500 px-4 py-2 rounded-lg"
+                                className="bg-gray-300 hover:bg-gray-500 px-4 py-2 rounded-lg"
                             >
                                 Batal
                             </button>
@@ -257,10 +257,10 @@ const Transaction = () => {
             {isEditDialogOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                        <h2 className="text-lg font-bold mb-4">Edit Transaksi</h2>
+                        <h2 className="text-lg text-blue-300 font-bold mb-4">Edit Transaksi</h2>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium mb-2">Nomor Resi</label>
+                            <h4 className="block text-sm font-medium mb-2">Nomor Resi</h4>
                             <div className="flex gap-2">
                                 <input
                                     type="text"
@@ -291,39 +291,96 @@ const Transaction = () => {
 
             {isDetailDialogOpen && transactionToView && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                        <h2 className="text-lg font-bold mb-4">Detail Transaksi</h2>
-
-                        <div className="mb-4">
-                            <strong>No Transaksi:</strong> {transactionToView.no_transaction}
+                    <div className="relative bg-white p-8 rounded-lg w-full max-w-lg max-h-[80vh] overflow-y-auto p-10">
+                        <h1 className="text-lg text-blue-300 font-bold mb-8">Detail Transaksi</h1>
+                        <div className='flex gap-10 mb-4'>
+                            <div>
+                                <h4 className='mb-2 font-semibold'>No Transaksi:</h4><p className='bg-blue-300 p-2 rounded-md text-sm'>{transactionToView.no_transaction}</p>
+                            </div>
+                            <div>
+                                <h4 className='mb-2 font-semibold'>No Resi:</h4>
+                                <p className='bg-blue-300 p-2 rounded-md text-center text-sm'>  {transactionToView.no_receipt.trim() === '' ? '-' : transactionToView.no_receipt}
+                                </p>
+                            </div>
+                            <div>
+                                <h4 className='mb-2 font-semibold'>Status:</h4><p className='bg-blue-300 p-2 rounded-md text-sm'>{transactionToView.status}</p>
+                            </div>
                         </div>
                         <div className="mb-4">
-                            <strong>Status:</strong> {transactionToView.status}
+                            <h4 className="mb-2 font-semibold">Nama Penerima:</h4>
+                            <input
+                                type="text"
+                                value={transactionToView.address_name}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
                         </div>
                         <div className="mb-4">
-                            <strong>Total Harga:</strong> Rp {transactionToView.total_price.toLocaleString()}
+                            <h4 className="mb-2 font-semibold">Nama Kurir:</h4>
+                            <input
+                                type="text"
+                                value={transactionToView.courier_name}
+                                readOnly
+                                className="w-full border rounded-lg p-2"
+                            />
                         </div>
-                        <div className="mb-4">
-                            <strong>Voucher:</strong> {transactionToView.voucher_id}
-                        </div>
-                        <div className="mb-4">
-                            <strong>Alamat Pengiriman:</strong> {transactionToView.address_id}
-                        </div>
-                        <div className="mb-4">
-                            <strong>Detail Produk:</strong>
+                        <div className="mb-8">
+                            <h4 className='mb-2 font-semibold'>Detail Produk:</h4>
                             <ul>
                                 {transactionToView.transaction_details.map((detail) => (
-                                    <li key={detail.id}>
-                                        <img src={detail.image} alt={detail.product_name} className="w-16 h-16" />
-                                        <div>{detail.product_name}</div>
-                                        <div>Size: {detail.size}</div>
-                                        <div>Quantity: {detail.quantity}</div>
-                                        <div>Total Harga: Rp {detail.total_price.toLocaleString()}</div>
-                                    </li>
+                                    <div key={detail.id} className='flex ml-2 gap-6'>
+                                        <img src={detail.image} alt={detail.product_name} className="w-20 h-20 rounded-md" />
+                                        <div className='text-sm'>
+                                            <div>{detail.product_name}</div>
+                                            <div>Size: {detail.size}</div>
+                                            <div>Quantity: {detail.quantity}</div>
+                                            <div>Harga: Rp {detail.total_price.toLocaleString()}</div>
+                                        </div>
+                                    </div>
                                 ))}
                             </ul>
                         </div>
-
+                        <div className="mb-8">
+                            <h4 className="mb-2 font-semibold">Detail Harga:</h4>
+                            <div className=''>
+                                <div className='mb-1'>
+                                    <h6 className="text-sm">Harga Original:</h6>
+                                    <input
+                                        type="text"
+                                        value={transactionToView.original_price.toLocaleString()}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2"
+                                    />
+                                </div>
+                                <div className='mb-1'>
+                                    <h6 className="text-sm">Jumlah Diskon:</h6>
+                                    <input
+                                        type="text"
+                                        value={transactionToView.discount_amount.toLocaleString()}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2"
+                                    />
+                                </div>
+                                <div className='mb-1'>
+                                    <h6 className="text-sm">Poin Digunakan:</h6>
+                                    <input
+                                        type="text"
+                                        value={transactionToView.point_used.toLocaleString()}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2 mb-1"
+                                    />
+                                </div>
+                                <div className='mb-1'>
+                                    <h6 className="text-sm">Harga Total:</h6>
+                                    <input
+                                        type="text"
+                                        value={transactionToView.total_price.toLocaleString()}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2 mb-1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                         <div className="flex justify-center gap-4">
                             <button
                                 onClick={closeDetailDialog}
@@ -335,9 +392,6 @@ const Transaction = () => {
                     </div>
                 </div>
             )}
-
-
-
         </div>
     );
 };
