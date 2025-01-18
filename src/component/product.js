@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight, faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faEdit, faEye, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Loading from './loading';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -279,12 +279,26 @@ const Product = () => {
     return (
         <div className="p-4 sm:ml-64">
             <h1 className="font-medium text-blue-300 text-3xl mt-20">Produk</h1>
-            <button
-                onClick={openCreateDialog}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg mt-10"
-            >
-                Tambah Product
-            </button>
+            <div className="flex items-center gap-4 mt-10">
+                <button
+                    onClick={openCreateDialog}
+                    className="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg"
+                >
+                    Tambah Product
+                </button>
+                <div className="relative flex-1 max-w-md">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Cari produk..."
+                        // value={searchTerm}
+                        // onChange={handleSearch}
+                        className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                </div>
+            </div>
             <div className="p-4 border-2 border-gray-200 rounded-lg mt-10">
                 <div className="overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left rtl:text-right">
