@@ -178,12 +178,12 @@ const Transaction = () => {
                                             >
                                                 <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
                                             </button>
-                                            <button
+                                            {/* <button
                                                 onClick={() => openDialog(transaction)}
                                                 className="text-white bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                             >
                                                 <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
-                                            </button>
+                                            </button> */}
                                             <button
                                                 onClick={() => openDetailDialog(transaction)}
                                                 className="text-white bg-green-500 hover:bg-green-700 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
