@@ -183,6 +183,7 @@ const Product = () => {
             });
             setProducts([...products, newProduct]);
             closeCreateDialog();
+            window.location.reload();
         } catch (error) {
             console.error("Error creating product:", error);
             setError('Gagal menambahkan produk');

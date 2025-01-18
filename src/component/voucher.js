@@ -16,8 +16,16 @@ const Voucher = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [showDetailDialog, setShowDetailDialog] = useState(false);
+    const [showEditDialog, setShowEditDialog] = useState(false);
     const [showCreateDialog, setShowCreateDialog] = useState(false);
+    const [voucherToDelete, setVoucherToDelete] = useState(null);
     const [newVoucher, setNewVoucher] = useState({
+        id: '',
+        name: '',
+        description: '',
+        discount: ''
+    });
+    const [voucherToEdit, setVoucherToEdit] = useState({
         id: '',
         name: '',
         description: '',
@@ -61,14 +69,61 @@ const Voucher = () => {
             });
     }, [currentPage]);
 
-    const handleDeleteVoucher = (voucherId) => {
-        console.log(`Deleting voucher with ID: ${voucherId}`);
-        setShowDeleteDialog(false);
+    const openDeleteDialog = (voucher) => {
+        setVoucherToDelete(voucher);
+        setShowDeleteDialog(true);
     };
 
-    const handleDetailVoucher = (voucher) => {
+    const openDetailDialog = (voucher) => {
         setSelectedVoucher(voucher);
         setShowDetailDialog(true);
+    };
+
+    const openEditDialog = (voucher) => {
+        setVoucherToEdit(voucher);
+        setShowEditDialog(true);
+    };
+
+    const closeEditDialog = () => {
+        setShowEditDialog(false);
+        setVoucherToEdit(null);
+    };
+
+    const closeDetailDialog = () => {
+        setShowDetailDialog(false);
+        setSelectedVoucher(null);
+    };
+
+    const closeDeleteDialog = () => {
+        setShowDeleteDialog(false);
+        setVoucherToDelete(null);
+    };
+
+    const deleteVoucher = async () => {
+        if (voucherToDelete) {
+            const token = Cookies.get('token');
+            if (!token) {
+                setError('Token tidak ditemukan, silakan login kembali');
+                setTimeout(() => {
+                    navigate('/');
+                }, 200);
+                return;
+            }
+
+            try {
+                await axios.delete(`https://skripsi-api-859835962101.asia-southeast2.run.app/voucher/${voucherToDelete.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setVouchers(vouchers.filter(vouchers => vouchers.id !== voucherToDelete.id));
+                handleCloseDialog();
+            } catch (error) {
+                console.error("Error deleting voucher:", error);
+                setError('Terjadi kesalahan saat menghapus voucher');
+                handleCloseDialog();
+            }
+        }
     };
 
     const handleCreateVoucher = () => {
@@ -116,10 +171,47 @@ const Voucher = () => {
             });
     };
 
+    const updateVoucher = () => {
+        setLoading2(true);
+
+        const token = Cookies.get('token');
+        if (!token) {
+            setError('Token tidak ditemukan, silakan login kembali');
+            setLoading2(false);
+            setTimeout(() => {
+                navigate('/');
+            }, 200);
+            return;
+        }
+
+        axios.put(
+            `https://skripsi-api-859835962101.asia-southeast2.run.app/voucher/${voucherToEdit.id}`,
+            voucherToEdit,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+            .then((response) => {
+                if (response.data.status) {
+                    setVouchers([...vouchers, newVoucher]);
+                    setShowEditDialog(false);
+                    setVoucherToEdit(null);
+                } else {
+                    setError('Gagal membuat voucher');
+                }
+            })
+            .catch((error) => {
+                console.error("Error creating voucher:", error);
+                setError('Terjadi kesalahan saat membuat voucher');
+            })
+            .finally(() => {
+                setLoading2(false);
+            });
+    };
 
     const handleCloseDialog = () => {
-        setShowDeleteDialog(false);
-        setShowDetailDialog(false);
         setShowCreateDialog(false);
     };
 
@@ -159,17 +251,19 @@ const Voucher = () => {
                                     <td className="px-6 py-3">{voucher.discount}</td>
                                     <td className="px-6 py-3">
                                         <div className="flex gap-2">
-                                            <button className="text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-3 py-2 flex items-center">
+                                            <button
+                                                onClick={() => openEditDialog(voucher)}
+                                                className="text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-3 py-2 flex items-center">
                                                 <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
                                             </button>
                                             <button
-                                                onClick={() => setShowDeleteDialog(true)}
+                                                onClick={() => openDeleteDialog(voucher)}
                                                 className="text-white bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                             >
                                                 <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
                                             </button>
                                             <button
-                                                onClick={() => handleDetailVoucher(voucher)}
+                                                onClick={() => openDetailDialog(voucher)}
                                                 className="text-white bg-green-500 hover:bg-green-700 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                             >
                                                 <FontAwesomeIcon icon={faEye} className="h-4 w-4" />
@@ -214,7 +308,7 @@ const Voucher = () => {
                 </div>
             </div>
 
-            {showDeleteDialog && (
+            {showDeleteDialog && voucherToDelete && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-md">
                         <p className="text-gray-600 mb-6">
@@ -222,18 +316,95 @@ const Voucher = () => {
                         </p>
                         <div className="flex justify-center gap-4">
                             <button
-                                onClick={() => handleDeleteVoucher(selectedVoucher?.id)}
+                                onClick={() => deleteVoucher(voucherToDelete?.id)}
                                 className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700"
                             >
                                 Hapus
                             </button>
                             <button
-                                onClick={handleCloseDialog}
+                                onClick={closeDeleteDialog}
                                 className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
                             >
                                 Batal
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {showEditDialog && voucherToEdit && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
+                        <h2 className="text-lg font-bold text-blue-300 mb-8">Edit Voucher</h2>
+                        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+                            <div className="mb-4">
+                                <h4 className='mb-2'>Kode Voucher:</h4>
+                                <input
+                                    type="text"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={voucherToEdit.id}
+                                    onChange={(e) => setVoucherToEdit({ ...voucherToEdit, id: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <h4 className='mb-2'>Nama Voucher:</h4>
+                                <input
+                                    type="text"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={voucherToEdit.name}
+                                    onChange={(e) => setVoucherToEdit({ ...voucherToEdit, name: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <h4 className='mb-2'>Deskripsi:</h4>
+                                <input
+                                    type="text"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={voucherToEdit.description}
+                                    onChange={(e) => setVoucherToEdit({ ...voucherToEdit, description: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <h4 className='mb-2'>Diskon:</h4>
+                                <input
+                                    type="number"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    value={voucherToEdit.discount}
+                                    onChange={(e) =>
+                                        setVoucherToEdit({
+                                            ...voucherToEdit,
+                                            discount: parseFloat(e.target.value),
+                                        })
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-center gap-6 mt-8">
+                                {loading2 ? (
+                                    <div className="flex justify-center items-center mt-5">
+                                        <div className="animate-spin-3d h-24 w-24">
+                                            <img src={DM1} alt="Loading" />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <button
+                                            onClick={updateVoucher}
+                                            className="w-full md:w-auto py-3 px-6 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 transition duration-300"
+                                        >
+                                            Simpan
+                                        </button>
+                                        <button
+                                            onClick={closeEditDialog}
+                                            className="w-full md:w-auto py-3 px-6 bg-gray-500 text-white rounded-lg shadow-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300"
+                                        >
+                                            Tutup
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             )}
@@ -279,7 +450,7 @@ const Voucher = () => {
                             />
                         </div>
                         <button
-                            onClick={handleCloseDialog}
+                            onClick={closeDetailDialog}
                             className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
                         >
                             Tutup
