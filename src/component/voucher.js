@@ -454,13 +454,13 @@ const Voucher = () => {
                                     <>
                                         <button
                                             onClick={updateVoucher}
-                                            className="w-full md:w-auto py-3 px-6 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 transition duration-300"
+                                            className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700"
                                         >
                                             Simpan
                                         </button>
                                         <button
                                             onClick={closeEditDialog}
-                                            className="w-full md:w-auto py-3 px-6 bg-gray-500 text-white rounded-lg shadow-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300"
+                                            className="py-2 px-4 text-black bg-gray-300 rounded-lg shadow-lg hover:bg-gray-500"
                                         >
                                             Tutup
                                         </button>
@@ -581,13 +581,13 @@ const Voucher = () => {
                                     <>
                                         <button
                                             onClick={handleCreateVoucher}
-                                            className="w-full md:w-auto py-3 px-6 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 transition duration-300"
+                                            className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700"
                                         >
                                             Simpan
                                         </button>
                                         <button
                                             onClick={handleCloseDialog}
-                                            className="w-full md:w-auto py-3 px-6 bg-gray-500 text-white rounded-lg shadow-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300"
+                                            className="py-2 px-4 bg-gray-300 text-black rounded-lg shadow-lg hover:bg-gray-500"
                                         >
                                             Tutup
                                         </button>
