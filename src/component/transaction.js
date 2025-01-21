@@ -21,6 +21,7 @@ const Transaction = () => {
     const [noReceipt, setNoReceipt] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [searchInput, setSearchInput] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -84,12 +85,20 @@ const Transaction = () => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         setSearchTerm(searchInput);
+        setStatusFilter('');
         setCurrentPage(1);
     };
 
     const resetSearch = () => {
         setSearchTerm('');
         setSearchInput('');
+        setStatusFilter('');
+        setCurrentPage(1);
+    };
+
+    const handleStatusFilter = (status) => {
+        setSearchTerm(status);
+        setStatusFilter(status);
         setCurrentPage(1);
     };
 
@@ -166,25 +175,60 @@ const Transaction = () => {
     return (
         <div className="p-4 sm:ml-64">
             <h1 className="font-medium text-blue-300 text-3xl mt-20">Transaksi</h1>
-            <div className="relative flex-1 max-w-md mt-10">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                </div>
-                <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Cari transaksi..."
-                        value={searchInput}
-                        onChange={handleSearchInput}
-                        className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                </form>
-            </div>
             <div className="p-4 border-2 border-gray-200 rounded-lg mt-10">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto sm:rounded-lg p-4">
+                    <div className="relative flex mb-8 items-center gap-10">
+                        <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Cari transaksi..."
+                                value={searchInput}
+                                onChange={handleSearchInput}
+                                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            />
+                        </form>
+                        <div className="flex gap-2 flex-wrap">
+                            <button
+                                onClick={() => handleStatusFilter('Pending')}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium ${statusFilter === 'Pending'
+                                    ? 'bg-blue-300 text-white'
+                                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                                    }`}
+                            >
+                                Pending
+                            </button>
+                            <button
+                                onClick={() => handleStatusFilter('Dibayar')}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium ${statusFilter === 'Dibayar'
+                                    ? 'bg-blue-300 text-white'
+                                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                                    }`}
+                            >
+                                Dibayar
+                            </button>
+                            <button
+                                onClick={() => handleStatusFilter('Dikirim')}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium ${statusFilter === 'Dikirim'
+                                    ? 'bg-blue-300 text-white'
+                                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                                    }`}
+                            >
+                                Dikirim
+                            </button>
+                            <button
+                                onClick={() => handleStatusFilter('Selesai')}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium ${statusFilter === 'Selesai'
+                                    ? 'bg-blue-300 text-white'
+                                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                                    }`}
+                            >
+                                Selesai
+                            </button>
+                        </div>
+                    </div>
                     <table className="w-full text-sm text-left rtl:text-right">
                         <thead className="text-xs text-white uppercase bg-blue-300">
                             <tr>
@@ -209,12 +253,6 @@ const Transaction = () => {
                                         </td>
                                         <td className="px-6 py-3">
                                             <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => openEditDialog(transaction)}
-                                                    className="text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
-                                                >
-                                                    <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
-                                                </button>
                                                 {/* <button
                                                 onClick={() => openDialog(transaction)}
                                                 className="text-white bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
@@ -223,9 +261,15 @@ const Transaction = () => {
                                             </button> */}
                                                 <button
                                                     onClick={() => openDetailDialog(transaction)}
-                                                    className="text-white bg-green-500 hover:bg-green-700 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
+                                                    className="text-white bg-blue-300 hover:bg-blue-600 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                                 >
                                                     <FontAwesomeIcon icon={faEye} className="h-4 w-4" />
+                                                </button>
+                                                <button
+                                                    onClick={() => openEditDialog(transaction)}
+                                                    className="text-white bg-yellow-500 hover:bg-yellow-700 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
+                                                >
+                                                    <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
                                                 </button>
                                             </div>
                                         </td>

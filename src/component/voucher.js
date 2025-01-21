@@ -218,7 +218,6 @@ const Voucher = () => {
         )
             .then((response) => {
                 if (response.data.status) {
-                    setVouchers([...vouchers, newVoucher]);
                     setShowEditDialog(false);
                     setVoucherToEdit(null);
                 } else {
@@ -245,34 +244,30 @@ const Voucher = () => {
     return (
         <div className="p-4 sm:ml-64">
             <h1 className="font-medium text-blue-300 text-3xl mt-20">Daftar Voucher</h1>
-            <div className="flex items-center gap-4 mt-10">
-                <button
-                    onClick={() => setShowCreateDialog(true)}
-                    className="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg"
-                >
-                    Tambah Voucher
-                </button>
-                <div className="relative flex-1 max-w-md">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                    </div>
-                    <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Cari voucher..."
-                            value={searchInput}
-                            onChange={handleSearchInput}
-                            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                    </form>
-                </div>
-            </div>
-
             <div className="p-4 border-2 border-gray-200 rounded-lg mt-10">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto sm:rounded-lg p-4">
+                    <div className="flex items-center justify-between gap-4 mb-8">
+                        <div className="relative flex-1 max-w-md">
+                            <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="Cari voucher..."
+                                    value={searchInput}
+                                    onChange={handleSearchInput}
+                                    className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                            </form>
+                        </div>
+                        <button
+                            onClick={() => setShowCreateDialog(true)}
+                            className="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg"
+                        >
+                            Tambah Voucher
+                        </button>
+                    </div>
                     <table className="w-full text-sm text-left rtl:text-right">
                         <thead className="text-xs text-white uppercase bg-blue-300">
                             <tr>
@@ -294,8 +289,14 @@ const Voucher = () => {
                                         <td className="px-6 py-3">
                                             <div className="flex gap-2">
                                                 <button
+                                                    onClick={() => openDetailDialog(voucher)}
+                                                    className="text-white bg-blue-300 hover:bg-blue-600 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
+                                                >
+                                                    <FontAwesomeIcon icon={faEye} className="h-4 w-4" />
+                                                </button>
+                                                <button
                                                     onClick={() => openEditDialog(voucher)}
-                                                    className="text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-3 py-2 flex items-center">
+                                                    className="text-white bg-yellow-500 hover:bg-yellow-700 font-medium rounded-lg text-sm px-3 py-2 flex items-center">
                                                     <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
                                                 </button>
                                                 <button
@@ -303,12 +304,6 @@ const Voucher = () => {
                                                     className="text-white bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                                 >
                                                     <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
-                                                </button>
-                                                <button
-                                                    onClick={() => openDetailDialog(voucher)}
-                                                    className="text-white bg-green-500 hover:bg-green-700 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
-                                                >
-                                                    <FontAwesomeIcon icon={faEye} className="h-4 w-4" />
                                                 </button>
                                             </div>
                                         </td>

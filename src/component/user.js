@@ -123,25 +123,22 @@ const User = () => {
     return (
         <div className="p-4 sm:ml-64">
             <h1 className="font-medium text-blue-300 text-3xl mt-20">Pengguna</h1>
-            <div className="relative flex-1 max-w-md mt-10">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                </div>
-                <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Cari pengguna..."
-                        value={searchInput}
-                        onChange={handleSearchInput}
-                        className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                </form>
-            </div>
             <div className="p-4 border-2 border-gray-200 rounded-lg mt-10">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto sm:rounded-lg p-4">
+                    <div className="relative flex-1 max-w-md mb-8">
+                        <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Cari pengguna..."
+                                value={searchInput}
+                                onChange={handleSearchInput}
+                                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            />
+                        </form>
+                    </div>
                     <table className="w-full text-sm text-left rtl:text-right">
                         <thead className="text-xs text-white uppercase bg-blue-300">
                             <tr>
@@ -161,16 +158,10 @@ const User = () => {
                                         <td className="px-6 py-3">
                                             <div className="flex gap-2">
                                                 <button
-                                                    className="text-white bg-green-500 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
+                                                    className="text-white bg-blue-300 hover:bg-blue-600 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
                                                     onClick={() => openDetailDialog(user)}
                                                 >
                                                     <FontAwesomeIcon icon={faEye} className="h-4 w-4" />
-                                                </button>
-                                                <button
-                                                    onClick={() => openDialog(user)}
-                                                    className="text-white bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 flex items-center"
-                                                >
-                                                    <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
                                                 </button>
                                             </div>
                                         </td>
