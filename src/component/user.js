@@ -258,14 +258,46 @@ const User = () => {
             )}
             {showDetailDialog && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg text-center w-96">
-                        <h2 className="text-lg font-semibold mb-4">Detail Pengguna</h2>
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm p-12">
+                        <h2 className="text-lg font-bold text-blue-300 mb-8">Detail Pengguna</h2>
                         {userDetail && (
                             <div className="text-left">
-                                <p><strong>Nama:</strong> {userDetail.name}</p>
-                                <p><strong>Username:</strong> {userDetail.username}</p>
-                                <p><strong>Email:</strong> {userDetail.email}</p>
-                                <p><strong>Point:</strong> {userDetail.point}</p>
+                                <div className="mb-4">
+                                    <h4 className="mb-2">Nama:</h4>
+                                    <input
+                                        type="text"
+                                        value={userDetail.name}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <h4 className="mb-2">Username:</h4>
+                                    <input
+                                        type="text"
+                                        value={userDetail.username}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <h4 className="mb-2">Email:</h4>
+                                    <input
+                                        type="text"
+                                        value={userDetail.email}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <h4 className="mb-2">Poin:</h4>
+                                    <input
+                                        type="text"
+                                        value={userDetail.point}
+                                        readOnly
+                                        className="w-full border rounded-lg p-2"
+                                    />
+                                </div>
                             </div>
                         )}
                         <button
