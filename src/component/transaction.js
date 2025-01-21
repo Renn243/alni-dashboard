@@ -317,7 +317,7 @@ const Transaction = () => {
                         <h2 className="text-lg text-blue-300 font-bold mb-4">Edit Transaksi</h2>
 
                         <div className="mb-4">
-                            <h4 className="block text-sm font-medium mb-2">Nomor Resi</h4>
+                            <h4 className="block text-sm font-semibold mb-2">Nomor Resi</h4>
                             <div className="flex gap-2">
                                 <input
                                     type="text"

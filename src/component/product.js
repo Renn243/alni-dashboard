@@ -461,9 +461,8 @@ const Product = () => {
                             ✖
                         </button>
                         <h2 className="text-lg text-blue-300 font-bold mb-8">Detail Produk</h2>
-
                         <div className="mb-4">
-                            <h4 className="mb-2">Nama Produk:</h4>
+                            <h4 className="mb-2 font-semibold">Nama Produk:</h4>
                             <input
                                 type="text"
                                 value={selectedProduct.name}
@@ -472,7 +471,7 @@ const Product = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <h4 className="mb-2">Harga:</h4>
+                            <h4 className="mb-2 font-semibold">Harga:</h4>
                             <input
                                 type="text"
                                 value={`Rp ${new Intl.NumberFormat().format(selectedProduct.price)}`}
@@ -481,7 +480,7 @@ const Product = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <h4 className="mb-2">Deskripsi:</h4>
+                            <h4 className="mb-2 font-semibold">Deskripsi:</h4>
                             <textarea
                                 value={selectedProduct.description || "Tidak ada deskripsi"}
                                 readOnly
@@ -490,7 +489,7 @@ const Product = () => {
                             ></textarea>
                         </div>
                         <div className="mb-4">
-                            <h4 className="mb-2">Kategori:</h4>
+                            <h4 className="mb-2 font-semibold">Kategori:</h4>
                             <input
                                 type="text"
                                 value={selectedProduct.category}
@@ -499,7 +498,7 @@ const Product = () => {
                             />
                         </div>
                         <div className="mb-8">
-                            <h4 className="mb-2">Gambar :</h4>
+                            <h4 className="mb-2 font-semibold">Gambar :</h4>
                             <img
                                 src={selectedProduct.image}
                                 alt={selectedProduct.name}
@@ -507,7 +506,7 @@ const Product = () => {
                             />
                         </div>
 
-                        <h3 className="mb-4">Ukuran & Stok</h3>
+                        <h3 className="mb-4 font-semibold">Ukuran & Stok</h3>
                         <div>
                             {selectedProduct.product_size.map(size => (
                                 <div key={size.id} className="mb-8">
@@ -553,10 +552,10 @@ const Product = () => {
 
             {isCreateDialogOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
-                    <div className="relative bg-white p-6 rounded-lg w-full max-w-md max-h-[80vh] overflow-y-auto">
-                        <h2 className="text-lg font-bold text-blue-300 mb-4">Tambah Produk</h2>
+                    <div className="relative bg-white p-6 rounded-lg w-full max-w-lg max-h-[80vh] overflow-y-auto">
+                        <h2 className="text-lg font-bold text-blue-300 mb-8">Tambah Produk</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
-                            <h4 className='mb-2'>Nama Produk</h4>
+                            <h4 className='mb-2 font-semibold'>Nama Produk</h4>
                             <input
                                 type="text"
                                 name="name"
@@ -564,14 +563,14 @@ const Product = () => {
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Deskripsi</h4>
+                            <h4 className='mb-2 font-semibold'>Deskripsi</h4>
                             <textarea
                                 name="description"
                                 value={newProduct.description}
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Harga</h4>
+                            <h4 className='mb-2 font-semibold'>Harga</h4>
                             <input
                                 type="number"
                                 name="price"
@@ -579,7 +578,7 @@ const Product = () => {
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Kategori</h4>
+                            <h4 className='mb-2 font-semibold'>Kategori</h4>
                             <input
                                 type="text"
                                 name="category"
@@ -587,7 +586,7 @@ const Product = () => {
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Gambar</h4>
+                            <h4 className='mb-2 font-semibold'>Gambar</h4>
                             <input
                                 type="file"
                                 name="image"
@@ -595,9 +594,10 @@ const Product = () => {
                                 className="w-full p-2 border rounded mb-4"
                             />
                             <div>
-                                <h3 className="mb-2">Ukuran dan Stok</h3>
+                                <h3 className="mb-2 font-semibold">Ukuran dan Stok</h3>
                                 {newProduct.product_size.map((size, index) => (
-                                    <div key={index} className="flex gap-4">
+                                    <div key={index}>
+                                        <h4 className='mb-2 text-sm'>{size.size}</h4>
                                         <input
                                             type="number"
                                             name={`product_size[${index}].stock`}
@@ -606,18 +606,18 @@ const Product = () => {
                                             onChange={handleInputChange}
                                             className="w-full p-2 border rounded mb-2"
                                         />
-                                        <input
+                                        <textarea
                                             type="text"
                                             name={`product_size[${index}].description`}
                                             placeholder={`Deskripsi Ukuran ${size.size}`}
                                             value={size.description}
+                                            rows={5}
                                             onChange={handleInputChange}
                                             className="w-full p-2 border rounded mb-2"
                                         />
                                     </div>
                                 ))}
                             </div>
-
 
                             <div className="flex justify-center gap-4 mt-4">
                                 {loading2 ? (
@@ -650,10 +650,10 @@ const Product = () => {
 
             {isEditDialogOpen && productToEdit && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="relative bg-white p-6 rounded-lg w-full max-w-md max-h-[80vh] overflow-y-auto">
+                    <div className="relative bg-white p-6 rounded-lg w-full max-w-lg max-h-[80vh] overflow-y-auto">
                         <h2 className="text-lg font-bold text-blue-300 mb-8">Update Produk</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
-                            <h4 className='mb-2'>Nama Produk:</h4>
+                            <h4 className='mb-2 font-semibold'>Nama Produk:</h4>
                             <input
                                 type="text"
                                 name="name"
@@ -661,7 +661,7 @@ const Product = () => {
                                 onChange={handleInputChangeEdit}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Deskripsi:</h4>
+                            <h4 className='mb-2 font-semibold'>Deskripsi:</h4>
                             <textarea
                                 name="description"
                                 value={productToEdit.description}
@@ -669,7 +669,7 @@ const Product = () => {
                                 rows={5}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Harga:</h4>
+                            <h4 className='mb-2 font-semibold'>Harga:</h4>
                             <input
                                 type="number"
                                 name="price"
@@ -677,7 +677,7 @@ const Product = () => {
                                 onChange={handleInputChangeEdit}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Kategori:</h4>
+                            <h4 className='mb-2 font-semibold'>Kategori:</h4>
                             <input
                                 type="text"
                                 name="category"
@@ -685,7 +685,7 @@ const Product = () => {
                                 onChange={handleInputChangeEdit}
                                 className="w-full p-2 border rounded mb-4"
                             />
-                            <h4 className='mb-2'>Gambar:</h4>
+                            <h4 className='mb-2 font-semibold'>Gambar:</h4>
                             <input
                                 type="file"
                                 name="image"
@@ -694,9 +694,10 @@ const Product = () => {
                             />
 
                             <div className="mt-4">
-                                <h3 className='mb-2'>Ukuran dan Stok</h3>
+                                <h3 className='mb-2 font-semibold'>Ukuran dan Stok</h3>
                                 {productToEdit.product_size.map((size, index) => (
-                                    <div key={index} className="flex gap-4">
+                                    <div key={index}>
+                                        <h4 className='mb-2 text-sm'>{size.size}</h4>
                                         <input
                                             type="number"
                                             name={`product_size[${index}].stock`}
@@ -705,11 +706,12 @@ const Product = () => {
                                             onChange={handleInputChangeEdit}
                                             className="w-full p-2 border rounded mb-2"
                                         />
-                                        <input
+                                        <textarea
                                             type="text"
                                             name={`product_size[${index}].description`}
                                             placeholder={`Deskripsi Ukuran ${size.size}`}
                                             value={size.description}
+                                            rows={5}
                                             onChange={handleInputChangeEdit}
                                             className="w-full p-2 border rounded mb-2"
                                         />

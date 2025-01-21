@@ -263,7 +263,7 @@ const User = () => {
                         {userDetail && (
                             <div className="text-left">
                                 <div className="mb-4">
-                                    <h4 className="mb-2">Nama:</h4>
+                                    <h4 className="mb-2 font-semibold">Nama:</h4>
                                     <input
                                         type="text"
                                         value={userDetail.name}
@@ -272,16 +272,16 @@ const User = () => {
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <h4 className="mb-2">Username:</h4>
+                                    <h4 className="mb-2 font-semibold">Username:</h4>
                                     <input
-                                        type="text"
+                                        type="text font-semibold"
                                         value={userDetail.username}
                                         readOnly
                                         className="w-full border rounded-lg p-2"
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <h4 className="mb-2">Email:</h4>
+                                    <h4 className="mb-2 font-semibold">Email:</h4>
                                     <input
                                         type="text"
                                         value={userDetail.email}
@@ -290,7 +290,7 @@ const User = () => {
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <h4 className="mb-2">Poin:</h4>
+                                    <h4 className="mb-2 font-semibold">Poin:</h4>
                                     <input
                                         type="text"
                                         value={userDetail.point}

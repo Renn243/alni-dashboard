@@ -402,7 +402,7 @@ const Voucher = () => {
                         <h2 className="text-lg font-bold text-blue-300 mb-8">Edit Voucher</h2>
                         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                             <div className="mb-4">
-                                <h4 className='mb-2'>Kode Voucher:</h4>
+                                <h4 className='mb-2 font-semibold'>Kode Voucher:</h4>
                                 <input
                                     type="text"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -411,7 +411,7 @@ const Voucher = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <h4 className='mb-2'>Nama Voucher:</h4>
+                                <h4 className='mb-2 font-semibold'>Nama Voucher:</h4>
                                 <input
                                     type="text"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -420,7 +420,7 @@ const Voucher = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <h4 className='mb-2'>Deskripsi:</h4>
+                                <h4 className='mb-2 font-semibold'>Deskripsi:</h4>
                                 <input
                                     type="text"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -429,7 +429,7 @@ const Voucher = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <h4 className='mb-2'>Diskon:</h4>
+                                <h4 className='mb-2 font-semibold'>Diskon:</h4>
                                 <input
                                     type="number"
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -478,7 +478,7 @@ const Voucher = () => {
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
                         <h1 className='text-blue-300 text-lg font-bold mb-8'>Detail Voucher</h1>
                         <div className="mb-4">
-                            <h4 className="mb-2">Nama Voucher:</h4>
+                            <h4 className="mb-2 font-semibold">Nama Voucher:</h4>
                             <input
                                 type="text"
                                 value={selectedVoucher.name}
@@ -487,7 +487,7 @@ const Voucher = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <h4 className="mb-2">Kode Voucher:</h4>
+                            <h4 className="mb-2 font-semibold">Kode Voucher:</h4>
                             <input
                                 type="text"
                                 value={selectedVoucher.id}
@@ -496,7 +496,7 @@ const Voucher = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <h4 className="mb-2">Diskon:</h4>
+                            <h4 className="mb-2 font-semibold">Diskon:</h4>
                             <input
                                 type="text"
                                 value={selectedVoucher.discount}
@@ -505,7 +505,7 @@ const Voucher = () => {
                             />
                         </div>
                         <div className="mb-8">
-                            <h4 className="mb-2">Deskripsi:</h4>
+                            <h4 className="mb-2 font-semibold">Deskripsi:</h4>
                             <input
                                 type="text"
                                 value={selectedVoucher.description}
