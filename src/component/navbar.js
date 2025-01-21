@@ -4,7 +4,7 @@ import DM2 from './image/dm2.png';
 import DM1 from './image/dm1.png';
 import DM3 from './image/dm3.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faExchangeAlt, faBox, faGift, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faExchangeAlt, faBox, faGift, faSignOutAlt, faChartPie } from '@fortawesome/free-solid-svg-icons';
 import Cookies from 'js-cookie';
 
 const Navbar = () => {
@@ -58,6 +58,15 @@ const Navbar = () => {
 
                     <hr className='mt-5 mx-5 border-2 border-gray-300' />
                     <ul className="space-y-2 px-4 mt-5">
+                        <li>
+                            <Link
+                                to="/dashboard"
+                                className="flex items-center p-2 text-gray-600 rounded-lg hover:bg-blue-200 group"
+                            >
+                                <FontAwesomeIcon icon={faChartPie} className="h-5 w-5 text-gray-600" />
+                                <span className="ms-3">Dashboard</span>
+                            </Link>
+                        </li>
                         <li>
                             <Link
                                 to="/user"
