@@ -184,7 +184,7 @@ const User = () => {
                                                     onClick={resetSearch}
                                                     className="px-4 py-2 bg-blue-300 hover:bg-blue-500 rounded-lg flex items-center gap-2 mt-4"
                                                 >
-                                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                                    <FontAwesomeIcon icon={faArrowLeft} className='text-white' />
                                                 </button>
                                             </div>
                                         </td>
@@ -254,7 +254,7 @@ const User = () => {
             {showDetailDialog && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm p-12">
-                        <h2 className="text-lg font-bold text-blue-300 mb-8">Detail Pengguna</h2>
+                        <h2 className="text-lg font-bold text-[#3ABEF9] mb-8">Detail Pengguna</h2>
                         {userDetail && (
                             <div className="text-left">
                                 <div className="mb-4">

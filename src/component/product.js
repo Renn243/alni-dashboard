@@ -389,7 +389,7 @@ const Product = () => {
                                                     onClick={resetSearch}
                                                     className="px-4 py-2 bg-[#3ABEF9] hover:bg-blue-500 rounded-lg flex items-center gap-2 mt-4"
                                                 >
-                                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                                    <FontAwesomeIcon icon={faArrowLeft} className='text-white' />
                                                 </button>
                                             </div>
                                         </td>
@@ -466,7 +466,7 @@ const Product = () => {
                         >
                             ✖
                         </button>
-                        <h2 className="text-lg text-blue-300 font-bold mb-8">Detail Produk</h2>
+                        <h2 className="text-lg text-[#3ABEF9] font-bold mb-8">Detail Produk</h2>
                         <div className="mb-4">
                             <h4 className="mb-2 font-semibold">Nama Produk:</h4>
                             <input
@@ -558,7 +558,7 @@ const Product = () => {
             {isCreateDialogOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
                     <div className="relative bg-white p-6 rounded-lg w-full max-w-xl max-h-[80vh] overflow-y-auto">
-                        <h2 className="text-lg font-bold text-blue-300 mb-8">Tambah Produk</h2>
+                        <h2 className="text-lg font-bold text-[#3ABEF9] mb-8">Tambah Produk</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
                             <h4 className='mb-2 font-semibold'>Nama Produk</h4>
                             <input
@@ -635,7 +635,7 @@ const Product = () => {
                                     <>
                                         <button
                                             onClick={createProduct}
-                                            className="bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 rounded-lg"
+                                            className="bg-[#3ABEF9] hover:bg-blue-500 text-white px-4 py-2 rounded-lg"
                                         >
                                             Simpan
                                         </button>
@@ -656,7 +656,7 @@ const Product = () => {
             {isEditDialogOpen && productToEdit && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="relative bg-white p-6 rounded-lg w-full max-w-xl max-h-[80vh] overflow-y-auto">
-                        <h2 className="text-lg font-bold text-blue-300 mb-8">Update Produk</h2>
+                        <h2 className="text-lg font-bold text-[#3ABEF9] mb-8">Update Produk</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
                             <h4 className='mb-2 font-semibold'>Nama Produk:</h4>
                             <input
@@ -735,7 +735,7 @@ const Product = () => {
                                     <>
                                         <button
                                             onClick={updateProduct}
-                                            className="bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 rounded-lg"
+                                            className="bg-[#3ABEF9] hover:bg-blue-500 text-white px-4 py-2 rounded-lg"
                                         >
                                             Simpan
                                         </button>

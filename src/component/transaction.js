@@ -308,7 +308,7 @@ const Transaction = () => {
                                                     onClick={resetSearch}
                                                     className="px-4 py-2 bg-[#3ABEF9] hover:bg-blue-500 rounded-lg flex items-center gap-2 mt-4"
                                                 >
-                                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                                    <FontAwesomeIcon icon={faArrowLeft} className='text-white' />
                                                 </button>
                                             </div>
                                         </td>
@@ -379,7 +379,7 @@ const Transaction = () => {
             {isEditDialogOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                        <h2 className="text-lg text-blue-300 font-bold mb-4">Edit Transaksi</h2>
+                        <h2 className="text-lg text-[#3ABEF9] font-bold mb-4">Edit Transaksi</h2>
 
                         <div className="mb-4">
                             <h4 className="block text-sm font-semibold mb-2">Nomor Resi</h4>
@@ -414,18 +414,19 @@ const Transaction = () => {
             {isDetailDialogOpen && transactionToView && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="relative bg-white p-8 rounded-lg w-full max-w-lg max-h-[80vh] overflow-y-auto p-10">
-                        <h1 className="text-lg text-blue-300 font-bold mb-8">Detail Transaksi</h1>
+                        <h1 className="text-lg text-[#3ABEF9] font-bold mb-8">Detail Transaksi</h1>
                         <div className='flex gap-10 mb-4'>
                             <div>
-                                <h4 className='mb-2 font-semibold'>No Transaksi:</h4><p className='bg-blue-300 p-2 rounded-md text-sm'>{transactionToView.no_transaction}</p>
+                                <h4 className='mb-2 font-semibold'>No Transaksi:</h4>
+                                <p className='bg-[#3ABEF9] text-white p-2 rounded-md text-sm'>{transactionToView.no_transaction}</p>
                             </div>
                             <div>
                                 <h4 className='mb-2 font-semibold'>No Resi:</h4>
-                                <p className='bg-blue-300 p-2 rounded-md text-center text-sm'>  {transactionToView.no_receipt.trim() === '' ? '-' : transactionToView.no_receipt}
-                                </p>
+                                <p className='bg-[#3ABEF9] text-white p-2 rounded-md text-center text-sm'>  {transactionToView.no_receipt.trim() === '' ? '-' : transactionToView.no_receipt}</p>
                             </div>
                             <div>
-                                <h4 className='mb-2 font-semibold'>Status:</h4><p className='bg-blue-300 p-2 rounded-md text-sm'>{transactionToView.status}</p>
+                                <h4 className='mb-2 font-semibold'>Status:</h4>
+                                <p className='bg-[#3ABEF9] text-white p-2 rounded-md text-sm'>{transactionToView.status}</p>
                             </div>
                         </div>
                         <div className="mb-4">

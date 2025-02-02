@@ -342,7 +342,7 @@ const Voucher = () => {
                                                     onClick={resetSearch}
                                                     className="px-4 py-2 bg-[#3ABEF9] hover:bg-blue-500 rounded-lg flex items-center gap-2 mt-4"
                                                 >
-                                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                                    <FontAwesomeIcon icon={faArrowLeft} className='text-white' />
                                                 </button>
                                             </div>
                                         </td>
@@ -414,7 +414,7 @@ const Voucher = () => {
             {showEditDialog && voucherToEdit && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
-                        <h2 className="text-lg font-bold text-blue-300 mb-8">Edit Voucher</h2>
+                        <h2 className="text-lg font-bold text-[#3ABEF9] mb-8">Edit Voucher</h2>
                         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                             <div className="mb-4">
                                 <h4 className='mb-2 font-semibold'>Kode Voucher:</h4>
@@ -469,7 +469,7 @@ const Voucher = () => {
                                     <>
                                         <button
                                             onClick={updateVoucher}
-                                            className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700"
+                                            className="py-2 px-4 bg-[#3ABEF9] text-white rounded-lg shadow-lg hover:bg-blue-500"
                                         >
                                             Simpan
                                         </button>
@@ -491,7 +491,7 @@ const Voucher = () => {
             {showDetailDialog && selectedVoucher && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
-                        <h1 className='text-blue-300 text-lg font-bold mb-8'>Detail Voucher</h1>
+                        <h1 className='text-[#3ABEF9] text-lg font-bold mb-8'>Detail Voucher</h1>
                         <div className="mb-4">
                             <h4 className="mb-2 font-semibold">Nama Voucher:</h4>
                             <input
@@ -541,7 +541,7 @@ const Voucher = () => {
             {showCreateDialog && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg p-12">
-                        <h2 className="text-lg font-bold text-blue-300 mb-8">Buat Voucher Baru</h2>
+                        <h2 className="text-lg font-bold text-[#3ABEF9] mb-8">Buat Voucher Baru</h2>
                         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                             <div className="mb-4">
                                 <h4 className='mb-2'>Kode Voucher:</h4>
@@ -596,7 +596,7 @@ const Voucher = () => {
                                     <>
                                         <button
                                             onClick={handleCreateVoucher}
-                                            className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-700"
+                                            className="py-2 px-4 bg-[#3ABEF9] text-white rounded-lg shadow-lg hover:bg-blue-500"
                                         >
                                             Simpan
                                         </button>
