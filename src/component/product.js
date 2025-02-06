@@ -24,6 +24,7 @@ const Product = () => {
     const [error, setError] = useState(false);
     const navigate = useNavigate();
     const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+    const [indexPage, setIndexPage] = useState(1);
     const availableSizes = ['S', 'M', 'L', 'X'];
 
     const [newProduct, setNewProduct] = useState({
@@ -246,20 +247,16 @@ const Product = () => {
     const handleInputChangeEdit = (e) => {
         const { name, value } = e.target;
         if (name.includes('product_size')) {
-            const sizeKey = name.split('[')[1].split(']')[0]; // Ambil key ukuran (S, M, L, X)
-            const key = name.split('.')[1]; // Ambil key field (stock/description)
+            const sizeKey = name.split('[')[1].split(']')[0];
+            const key = name.split('.')[1];
 
-            // Salin array product_size agar tidak mengubah state secara langsung
             let updatedSizes = [...productToEdit.product_size];
 
-            // Temukan indeks ukuran dalam array
             const sizeIndex = updatedSizes.findIndex((item) => item.size === sizeKey);
 
             if (sizeIndex !== -1) {
-                // Jika ukuran sudah ada, update data
                 updatedSizes[sizeIndex][key] = value;
             } else {
-                // Jika ukuran belum ada, tambahkan ukuran baru
                 updatedSizes.push({
                     size: sizeKey,
                     stock: key === 'stock' ? value : 0,
@@ -267,19 +264,21 @@ const Product = () => {
                 });
             }
 
-            // Perbarui state
             setProductToEdit({ ...productToEdit, product_size: updatedSizes });
         } else {
             setProductToEdit({ ...productToEdit, [name]: value });
         }
     };
 
-
     const handleImageChangeEdit = (e) => {
         const file = e.target.files[0];
         if (file) {
             setProductToEdit({ ...productToEdit, image: file });
         }
+    };
+
+    const getIndex = (index) => {
+        return (indexPage - 1) * 10 + index + 1;
     };
 
     useEffect(() => {
@@ -310,6 +309,7 @@ const Product = () => {
                     setTotalPages(1);
                 }
                 setLoading(false);
+                setIndexPage(currentPage);
             })
             .catch((error) => {
                 console.error("Error fetching products:", error);
@@ -369,7 +369,7 @@ const Product = () => {
                                 {products.length > 0 ? (
                                     products.map((product, index) => (
                                         <tr key={product.id} className="odd:bg-white even:bg-gray-50 border-b">
-                                            <td className="px-6 py-3">{(currentPage - 1) * 10 + index + 1}</td>
+                                            <td className="px-6 py-3">{getIndex(index)}</td>
                                             <td className="px-6 py-3">{product.name}</td>
                                             <td className="px-6 py-3">{new Intl.NumberFormat().format(product.price)}</td>
                                             <td className="px-6 py-3">
@@ -721,7 +721,6 @@ const Product = () => {
                             <div className="mt-4">
                                 <h3 className="mb-2 font-semibold">Ukuran dan Stok</h3>
                                 {availableSizes.map((size, index) => {
-                                    // Temukan ukuran dalam productToEdit.product_size
                                     const existingSize = productToEdit.product_size.find((s) => s.size === size) || {
                                         size,
                                         stock: 0,

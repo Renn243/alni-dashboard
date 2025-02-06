@@ -19,7 +19,7 @@ const User = () => {
     const [searchInput, setSearchInput] = useState('');
     const [errorMessage, setErrorMessage] = useState("");
     const [error, setError] = useState(false);
-    const [lastProcessedPage, setLastProcessedPage] = useState(1); // Simpan halaman terakhir yang diproses
+    const [indexPage, setIndexPage] = useState(1);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,7 +49,7 @@ const User = () => {
                     setTotalPage(1);
                 }
                 setLoading(false);
-                setLastProcessedPage(currentPage); // Perbarui halaman setelah data selesai dimuat
+                setIndexPage(currentPage);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -121,7 +121,7 @@ const User = () => {
     };
 
     const getIndex = (index) => {
-        return (lastProcessedPage - 1) * 10 + index + 1;
+        return (indexPage - 1) * 10 + index + 1;
     };
 
     if (loading) {
