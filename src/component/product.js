@@ -24,6 +24,7 @@ const Product = () => {
     const [error, setError] = useState(false);
     const navigate = useNavigate();
     const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+    const availableSizes = ['S', 'M', 'L', 'X'];
 
     const [newProduct, setNewProduct] = useState({
         name: '',
@@ -245,15 +246,34 @@ const Product = () => {
     const handleInputChangeEdit = (e) => {
         const { name, value } = e.target;
         if (name.includes('product_size')) {
-            const index = name.split('[')[1].split(']')[0];
-            const key = name.split('.')[1];
-            const updatedSizes = [...productToEdit.product_size];
-            updatedSizes[index][key] = value;
+            const sizeKey = name.split('[')[1].split(']')[0]; // Ambil key ukuran (S, M, L, X)
+            const key = name.split('.')[1]; // Ambil key field (stock/description)
+
+            // Salin array product_size agar tidak mengubah state secara langsung
+            let updatedSizes = [...productToEdit.product_size];
+
+            // Temukan indeks ukuran dalam array
+            const sizeIndex = updatedSizes.findIndex((item) => item.size === sizeKey);
+
+            if (sizeIndex !== -1) {
+                // Jika ukuran sudah ada, update data
+                updatedSizes[sizeIndex][key] = value;
+            } else {
+                // Jika ukuran belum ada, tambahkan ukuran baru
+                updatedSizes.push({
+                    size: sizeKey,
+                    stock: key === 'stock' ? value : 0,
+                    description: key === 'description' ? value : '',
+                });
+            }
+
+            // Perbarui state
             setProductToEdit({ ...productToEdit, product_size: updatedSizes });
         } else {
             setProductToEdit({ ...productToEdit, [name]: value });
         }
     };
+
 
     const handleImageChangeEdit = (e) => {
         const file = e.target.files[0];
@@ -699,29 +719,38 @@ const Product = () => {
                             />
 
                             <div className="mt-4">
-                                <h3 className='mb-2 font-semibold'>Ukuran dan Stok</h3>
-                                {productToEdit.product_size.map((size, index) => (
-                                    <div key={index}>
-                                        <h4 className='mb-2 text-sm'>{size.size}</h4>
-                                        <input
-                                            type="number"
-                                            name={`product_size[${index}].stock`}
-                                            placeholder={`Stok Ukuran ${size.size}`}
-                                            value={size.stock}
-                                            onChange={handleInputChangeEdit}
-                                            className="w-full p-2 border rounded mb-2"
-                                        />
-                                        <textarea
-                                            type="text"
-                                            name={`product_size[${index}].description`}
-                                            placeholder={`Deskripsi Ukuran ${size.size}`}
-                                            value={size.description}
-                                            rows={5}
-                                            onChange={handleInputChangeEdit}
-                                            className="w-full p-2 border rounded mb-2"
-                                        />
-                                    </div>
-                                ))}
+                                <h3 className="mb-2 font-semibold">Ukuran dan Stok</h3>
+                                {availableSizes.map((size, index) => {
+                                    // Temukan ukuran dalam productToEdit.product_size
+                                    const existingSize = productToEdit.product_size.find((s) => s.size === size) || {
+                                        size,
+                                        stock: 0,
+                                        description: '',
+                                    };
+
+                                    return (
+                                        <div key={index}>
+                                            <h4 className="mb-2 text-sm">{size}</h4>
+                                            <input
+                                                type="number"
+                                                name={`product_size[${size}].stock`}
+                                                placeholder={`Stok Ukuran ${size}`}
+                                                value={existingSize.stock}
+                                                onChange={handleInputChangeEdit}
+                                                className="w-full p-2 border rounded mb-2"
+                                            />
+                                            <textarea
+                                                type="text"
+                                                name={`product_size[${size}].description`}
+                                                placeholder={`Deskripsi Ukuran ${size}`}
+                                                value={existingSize.description}
+                                                rows={5}
+                                                onChange={handleInputChangeEdit}
+                                                className="w-full p-2 border rounded mb-2"
+                                            />
+                                        </div>
+                                    );
+                                })}
                             </div>
 
                             <div className="flex justify-center gap-4 mt-4">
